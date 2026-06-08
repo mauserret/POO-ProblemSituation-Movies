@@ -1,0 +1,37 @@
+M,1,Babylon,189,Drama
+M,2,Mad Max: Fury Road,120,Action
+M,3,The Grand Budapest Hotel,99,Comedy
+M,4,Do the Right Thing,120,Drama
+S,5,Breaking Bad,Drama
+E,Pilot,58,1
+E,Cat's in the Bag...,48,1
+E,...And the Bag's in the River,48,1
+E,Cancer Man,48,1
+E,Gray Matter,48,1
+E,Crazy Handful of Nothin',48,1
+E,A No-Rough-Stuff-Type Deal,48,1
+E,Seven Thirty-Seven,47,2
+E,Grilled,48,2
+E,Bit by a Dead Bee,47,2
+E,Down,47,2
+E,Breakage,47,2
+E,Peekaboo,47,2
+E,Negro y Azul,47,2
+E,Better Call Saul,47,2
+E,4 Days Out,47,2
+E,Over,47,2
+E,Mandala,47,2
+E,Phoenix,47,2
+E,ABQ,48,2
+S,6,Cyberpunk: Edgerunners,Sci-Fi
+E,Let You Down,26,1
+E,Like A Boy,26,1
+E,Smooth Criminal,26,1
+E,Lucky You,26,1
+E,All Eyez On Me,25,1
+E,Girl on Fire,28,1
+E,Stronger,26,1
+E,Stay,26,1
+E,Humanity,27,1
+E,My Moon My Man,29,1
+
