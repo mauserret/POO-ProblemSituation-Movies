@@ -23,7 +23,9 @@ int readInt(const string& prompt) {
     int value;
     while (true) {
         cout << prompt;
-        if (cin >> value) return value;
+        if (cin >> value) {
+            return value;
+        }
         cout << "Please enter a valid integer.\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -35,7 +37,9 @@ double readDouble(const string& prompt) {
     double value;
     while (true) {
         cout << prompt;
-        if (cin >> value) return value;
+        if (cin >> value) {
+            return value;
+        }
         cout << "Please enter a valid number.\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -44,79 +48,72 @@ double readDouble(const string& prompt) {
 
 int main() {
     Catalog catalog;
-    catalog.loadData("videos_dataset.txt");
-
+ 
     int option;
     do {
-        cout << "\nType and option from the following list: \n"
-             << "(1) Search for a Video \n"
-             << "(2) Show all Movies \n" 
-             << "(3) Show all Series \n"
-             << "(4) Rate a Video \n"
-             << "(5) Search for Videos with a specific rating or genre \n"
-             << "(6) Show the episodes of a specific serie with a specific rating \n"
-             << "(7) Show the movies with a specific rating \n"
-             << "(8) Exit program \n";
+        cout << "----------------------------------------\n"
+             << "(1) Load data file\n"
+             << "(2) Show videos with a specific rating or genre\n"
+             << "(3) Show episodes of a series with a specific rating\n"
+             << "(4) Show movies with a specific rating\n"
+             << "(5) Rate a video\n"
+             << "(6) Exit\n"
+             << "----------------------------------------\n";
         option = readInt("Option: ");
-        
-        if (option == 1) {            
-            string title = readText("Type the title of the Video: ");
-            catalog.showByTitle(title);
-        } 
-        else if (option == 2) {
-            catalog.showMovies();
-        } 
-        else if (option == 3) {
-            catalog.showSeries();
-        } 
-        else if (option == 4) {
-            string title = readText("Type the title of the Video: ");
-            double rate = readDouble("Type your rating (from 0.5 to 5): ");
-            catalog.rateVideo(title, rate);
-        } 
-        else if (option == 5) {
-
-            int subOption; 
+ 
+        if (option == 1) {
+            string filename;
+            cout << "Enter filename: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, filename);
+            catalog.loadData(filename);
+ 
+        } else if (option == 2) {
+            int sub;
             do {
-                cout << "(1) Search by rating \n"
-                     << "(2) Search by genre \n" 
-                     << "(3) Cancel\n";  
-                subOption = readInt("Option: ");
+                cout << "\n  (1) Search by rating\n"
+                     << "  (2) Search by genre\n"
+                     << "  (3) Back\n";
+                sub = readInt("  Option: ");
 
-                if (subOption == 1) {
-                    double rate = readDouble("Enter rating: ");
+                if (sub == 1) {
+                    double rate = readDouble("  Enter rating (0.1 – 5.0): ");
                     catalog.showByRating(rate);
-                    break;  
 
-                } else if (subOption == 2) {
-                    string genre = readText("Enter genre: ");
+                } else if (sub == 2) {
+                    string genre = readText("  Enter genre: ");
                     catalog.showByGenre(genre);
-                    break;
 
-                } else if (subOption == 3) {
-                    cout << "Search cancelled\n\n";
+                } else if (sub == 3) {
+                    cout << "  Returning to main menu.\n";
+
                 } else {
-                    cout << "Please select a correct option\n";
+                    cout << "  Invalid option.\n";
                 }
-            } while (subOption != 3);
-
-        } else if (option == 6) {
-            string title = readText("Enter serie title: ");
-            double rate = readDouble("Enter rating: ");
+            } while (sub != 3);
+ 
+        } else if (option == 3) {
+            string title = readText("Enter series title: ");
+            double rate  = readDouble("Enter rating (0.1 – 5.0): ");
             catalog.showSerieEpisodesByRating(title, rate);
-        } else if (option == 7) {
-            double rate = readDouble("Enter rating: ");
+ 
+        } else if (option == 4) {
+            double rate = readDouble("Enter rating (0.1 – 5.0): ");
             catalog.showMoviesByRating(rate);
+ 
+        } else if (option == 5) {
+            string title = readText("Enter title to rate: ");
+            double rate  = readDouble("Enter rating (0.5 – 5.0): ");
+            catalog.rateVideo(title, rate);
+ 
+        } else if (option == 6) {
+            cout << "Exiting. Goodbye!\n";
+ 
+        } else {
+            cout << "Invalid option. Please choose 1 – 6.\n";
         }
-        else if (option == 8) {
-            cout << "Exiting program. \n";
-        } 
-        else {
-            cout << "Wrong option\n\n";
-        }
-
-    } while (option != 8);
-
+ 
+    } while (option != 6);
+ 
     return 0;
-
 }

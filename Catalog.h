@@ -132,6 +132,8 @@ public:
         }
     }
 
+/* This functions were not necessary for the assignment
+
     // prints the info of any video found with the provided title. If not found, prints a message
     void showByTitle(const string &title) const {
         
@@ -157,7 +159,6 @@ public:
             cout << "Warning. No video found titled: " << title << "\n\n";
         }
     }
-
     // shows the data of all the movies
     void showMovies() {
         for (Movie* m : getMovies()) cout << *m;
@@ -168,6 +169,7 @@ public:
         for (Serie* s : getSeries()) cout << *s;
     }
 
+*/ 
     // validates rate, finds title matches and adds the rating to the video's respective rating vector
     void rateVideo(string &title, double rate){
         
