@@ -77,7 +77,7 @@ int main() {
                 sub = readInt("  Option: ");
 
                 if (sub == 1) {
-                    double rate = readDouble("  Enter rating (0.1 – 5.0): ");
+                    double rate = readDouble("  Enter rating (0.1 - 5.0): ");
                     catalog.showByRating(rate);
 
                 } else if (sub == 2) {
@@ -94,23 +94,23 @@ int main() {
  
         } else if (option == 3) {
             string title = readText("Enter series title: ");
-            double rate  = readDouble("Enter rating (0.1 – 5.0): ");
+            double rate  = readDouble("Enter rating (0.1 - 5.0): ");
             catalog.showSerieEpisodesByRating(title, rate);
  
         } else if (option == 4) {
-            double rate = readDouble("Enter rating (0.1 – 5.0): ");
+            double rate = readDouble("Enter rating (0.1 - 5.0): ");
             catalog.showMoviesByRating(rate);
  
         } else if (option == 5) {
             string title = readText("Enter title to rate: ");
-            double rate  = readDouble("Enter rating (0.5 – 5.0): ");
+            double rate  = readDouble("Enter rating (0.5 - 5.0): ");
             catalog.rateVideo(title, rate);
  
         } else if (option == 6) {
             cout << "Exiting. Goodbye!\n";
  
         } else {
-            cout << "Invalid option. Please choose 1 – 6.\n";
+            cout << "Invalid option. Please choose 1 - 6.\n";
         }
  
     } while (option != 6);
