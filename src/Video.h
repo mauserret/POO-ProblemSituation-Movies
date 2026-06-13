@@ -6,7 +6,7 @@
 using namespace std;
 
 class Video {
-private:
+protected:
     int id;
     vector<double> ratings;
     string title;
@@ -14,7 +14,7 @@ private:
 public:
     Video(int id, string title, string genre) : id{id}, title{title}, genre{genre} {}
     virtual double getAverageRating() const = 0;
-    virtual void showData(ostream& os) const = 0;
+    virtual void showData() const = 0;
     void addRating(double rating) {
         ratings.push_back(rating);
     }
@@ -25,15 +25,8 @@ public:
     string getGenre() const {
         return genre;
     }
-    int getId() const {
-        return id;
-    }
-
-    const vector<double>& getRatings() const {
-        return ratings;
-    }
     friend ostream& operator<<(ostream& os, const Video& video) {
-        video.showData(os);
+        video.showData();
         return os;
     }
 
@@ -49,23 +42,22 @@ public:
 
     double getAverageRating() const override {
         // returns the average rating of a Movie. Used in showData()
-        const vector<double>& r = getRatings();
-        if (r.empty()) {
+        if (ratings.empty()) {
             return 0;
         } 
 
-        double sum = 0;
-        for (double rating : r) {
-            sum += rating;
+        double count = 0;
+        for (double rating : ratings) {
+            count += rating;
         }
-        return sum / double(r.size());
+        return count / double(ratings.size());
     }
 
-    void showData(ostream& os) const override{
-        os 
+    void showData() const override{
+        cout 
         << "----------------------Movie------------------------\n" 
-        << getId() << ". " << getTitle()  
-        << "\nGenre: " << getGenre() << "\nRuntime: " << length << " mins \n"
+        << id << ". " << title  
+        << "\nGenre: " << genre << "\nRuntime: " << length << " mins \n"
         << "Rating: " << fixed << setprecision(1) << getAverageRating() << defaultfloat << "\n"
         << "----------------------Movie------------------------\n\n"; 
     }
@@ -94,8 +86,8 @@ public:
         return count / double(ratings.size());
     }
 
-    void showEpisode(ostream& os) const {
-        os 
+    void showEpisode() const {
+        cout 
         << "S" << season << " - " << title << " - " << length << " mins - " 
         << "Rating: " << fixed << setprecision(1) << getAverageRating() << defaultfloat << "\n";
     }
@@ -113,10 +105,11 @@ public:
     }
 
     friend ostream& operator<<(ostream& os, const Episode& episode) {
-        episode.showEpisode(os);
+        episode.showEpisode();
         return os;
     }
 };
+
 class Serie:public Video {
 private:
     vector<Episode*> episodes;
@@ -148,32 +141,31 @@ public:
         return count / n;
     }
 
-    void showData(ostream& os) const override {
-        os << "----------------------Serie------------------------\n"
-           << getId() << ". " << getTitle()
-           << "\n   Serie - " << getGenre() << "- Rating: "
-           << fixed << setprecision(1) << getAverageRating() << defaultfloat << "\n";
- 
-        int ep_count = 1, season_count = 1;
-        for (Episode* e : episodes) {
-            if (e->getSeason() != season_count) {
+    void showData() const override {
+        cout 
+        << "----------------------Serie------------------------\n" 
+        << id << ". " << title  
+        << "\n   Serie - " << genre << "- Rating: " << fixed << setprecision(1) << getAverageRating() << defaultfloat << "\n";
+
+        int episode_count = 1;
+        int season_count = 1;
+        for (Episode* episode: episodes) {
+
+            if (episode->getSeason() != season_count) {
                 season_count++;
-                ep_count = 1;
+                episode_count = 1;
             }
-            os << "\nE" << ep_count;
-            e->showEpisode(os);
-            ep_count++;
+
+            cout << "\nE" << episode_count;
+            episode->showEpisode();
+            episode_count++;
+
         }
-        os << "----------------------Serie------------------------\n\n";
+
+        cout << "----------------------Serie------------------------\n\n";
     }
 
     vector<Episode*>& getEpisodes() {
         return episodes;
-    }
-
-    ~Serie() override {
-        for (Episode* e : episodes) {
-            delete e;
-        }
     }
 };

@@ -281,9 +281,4 @@ public:
         
         }
     }
-    ~Catalog() {
-        for (Video* v : videos) {
-            delete v;
-        }
-    }
 };
